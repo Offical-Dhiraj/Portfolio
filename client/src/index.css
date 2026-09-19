@@ -1,0 +1,434 @@
+@import "tailwindcss";
+
+:root {
+  /* =========================
+     BACKGROUNDS
+  ========================= */
+
+  --bg-primary: #080b14;
+  --bg-secondary: #0d1220;
+  --bg-tertiary: #111827;
+  --bg-card: #151d2e;
+
+  /* =========================
+     BORDERS
+  ========================= */
+
+  --border: #263248;
+  --border-soft: rgba(148, 163, 184, 0.12);
+
+  /* =========================
+     TEXT
+  ========================= */
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* =========================
+     BRAND
+  ========================= */
+
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+
+  --violet: #8b5cf6;
+  --cyan: #22d3ee;
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  --success: #34d399;
+  --danger: #fb7185;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-primary);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+
+  background:
+    radial-gradient(circle at 15% 10%,
+      rgba(99, 102, 241, 0.08),
+      transparent 28%),
+    radial-gradient(circle at 85% 20%,
+      rgba(139, 92, 246, 0.06),
+      transparent 25%),
+    var(--bg-primary);
+
+  color: var(--text-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* =========================
+   SELECTION
+========================= */
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #ffffff;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080b14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container-custom {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .container-custom {
+    width: min(100% - 28px, 1180px);
+  }
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+  position: relative;
+  padding: 110px 0;
+}
+
+.section-dark {
+  background: #080b14;
+}
+
+.section-slate {
+  background: #0d1220;
+}
+
+.section-card {
+  background: #111827;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+}
+
+/* =========================
+   SUBTLE GRID
+========================= */
+
+.section-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.035) 1px,
+      transparent 1px),
+    linear-gradient(90deg,
+      rgba(148, 163, 184, 0.035) 1px,
+      transparent 1px);
+
+  background-size: 45px 45px;
+}
+
+/* =========================
+   GRADIENT TEXT
+========================= */
+
+.gradient-text {
+  background: linear-gradient(110deg,
+      #818cf8 0%,
+      #a78bfa 45%,
+      #22d3ee 100%);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================
+   PREMIUM CARD
+========================= */
+
+.premium-card {
+  border: 1px solid var(--border-soft);
+
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.015));
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.22);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(99, 102, 241, 0.35);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(99, 102, 241, 0.05);
+}
+
+/* =========================
+   GLASS
+========================= */
+
+.glass {
+  background: rgba(15, 23, 42, 0.65);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.btn-primary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(135deg,
+      #6366f1,
+      #7c3aed);
+
+  padding: 13px 22px;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  box-shadow:
+    0 12px 30px rgba(99, 102, 241, 0.25);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 18px 40px rgba(99, 102, 241, 0.35);
+}
+
+/* =========================
+   SECONDARY BUTTON
+========================= */
+
+.btn-secondary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  padding: 13px 22px;
+
+  color: #e2e8f0;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+/* =========================
+   GLOW EFFECTS
+========================= */
+
+.glow-indigo {
+  box-shadow:
+    0 0 100px rgba(99, 102, 241, 0.16);
+}
+
+.glow-violet {
+  box-shadow:
+    0 0 100px rgba(139, 92, 246, 0.14);
+}
+
+.glow-cyan {
+  box-shadow:
+    0 0 100px rgba(34, 211, 238, 0.1);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+textarea {
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(99, 102, 241, 0.6) !important;
+
+  box-shadow:
+    0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* =========================
+   DARK FORM INPUT
+========================= */
+
+.dark-input {
+  width: 100%;
+
+  border: 1px solid rgba(148, 163, 184, 0.15);
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #f8fafc;
+
+  border-radius: 14px;
+
+  padding: 14px 16px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.dark-input::placeholder {
+  color: #64748b;
+}
+
+.dark-input:focus {
+  background: rgba(255, 255, 255, 0.05);
+
+  border-color: rgba(99, 102, 241, 0.6);
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================
+   FLOATING
+========================= */
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* =========================
+   PULSE GLOW
+========================= */
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* =========================
+   TEXT BALANCE
+========================= */
+
+.text-balance {
+  text-wrap: balance;
+}
