@@ -14,8 +14,7 @@ dotenv.config();
 
 const app = express();
 
-const PORT =
-  process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 /*
  * Required when deployed behind
@@ -31,21 +30,38 @@ await connectDB();
 /*
  * CORS
  */
-const allowedOrigin =
-  process.env.CLIENT_URL ||
-  "http://localhost:5173";
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://portfolio-c51u.vercel.app",
+];
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: (origin, callback) => {
+      // Allow Postman/server-to-server requests
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+
     methods: [
       "GET",
       "POST",
-      "OPTIONS"
+      "OPTIONS",
     ],
+
     allowedHeaders: [
-      "Content-Type"
-    ]
+      "Content-Type",
+      "Authorization",
+    ],
+
+    credentials: true,
   })
 );
 
@@ -54,14 +70,14 @@ app.use(
  */
 app.use(
   express.json({
-    limit: "100kb"
+    limit: "100kb",
   })
 );
 
 app.use(
   express.urlencoded({
     extended: true,
-    limit: "100kb"
+    limit: "100kb",
   })
 );
 
@@ -96,53 +112,44 @@ app.use(
 /*
  * 404 handler
  */
-app.use(
-  (req, res) => {
-    res.status(404).json({
-      success: false,
-      message:
-        `Route not found: ${req.originalUrl}`
-    });
-  }
-);
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route not found: ${req.originalUrl}`,
+  });
+});
 
 /*
  * Global error handler
  */
-app.use(
-  (error, req, res, next) => {
-    console.error(
-      "SERVER ERROR:",
-      error
-    );
+app.use((error, req, res, next) => {
+  console.error("SERVER ERROR:", error);
 
-    if (
-      error.name ===
-      "ValidationError"
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Invalid request data."
-      });
-    }
-
-    res.status(500).json({
+  if (error.name === "ValidationError") {
+    return res.status(400).json({
       success: false,
-      message:
-        "Something went wrong on the server."
+      message: "Invalid request data.",
     });
   }
-);
+
+  if (error.message === "Not allowed by CORS") {
+    return res.status(403).json({
+      success: false,
+      message: "CORS origin not allowed.",
+    });
+  }
+
+  res.status(500).json({
+    success: false,
+    message: "Something went wrong on the server.",
+  });
+});
 
 /*
  * Start server
  */
-app.listen(
-  PORT,
-  () => {
-    console.log(
-      `Portfolio server running on port ${PORT}`
-    );
-  }
-);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(
+    `Portfolio server running on port ${PORT}`
+  );
+});
