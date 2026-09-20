@@ -8,12 +8,9 @@ import {
   ExternalLink,
 } from "lucide-react";
 
-import {
-  FaGithub,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
-
+import profileImage from "../assets/profile.jpeg";
 
 const Hero = () => {
   return (
@@ -117,7 +114,6 @@ const Hero = () => {
               xl:gap-16
             "
           >
-
             {/* =====================================================
                 LEFT CONTENT
             ===================================================== */}
@@ -131,7 +127,6 @@ const Hero = () => {
               }}
               className="relative"
             >
-
               {/* Status */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -196,7 +191,6 @@ const Hero = () => {
                 "
               >
                 Dhiraj
-
                 <span className="block">
                   Kumar
                   <span className="gradient-text">.</span>
@@ -217,10 +211,7 @@ const Hero = () => {
                   sm:text-2xl
                 "
               >
-                Full Stack{" "}
-                <span className="gradient-text">
-                  MERN Developer
-                </span>
+                Full Stack <span className="gradient-text">MERN Developer</span>
               </motion.h2>
 
               {/* Description */}
@@ -237,10 +228,9 @@ const Hero = () => {
                   sm:text-base
                 "
               >
-                I build modern, scalable and user-focused web
-                applications using React, Node.js, Express and
-                MongoDB — turning ideas into practical digital
-                products.
+                I build modern, scalable and user-focused web applications using
+                React, Node.js, Express and MongoDB — turning ideas into
+                practical digital products.
               </motion.p>
 
               {/* Tech badges */}
@@ -250,11 +240,10 @@ const Hero = () => {
                 transition={{ delay: 0.5 }}
                 className="mt-5 flex flex-wrap gap-2"
               >
-                {["React", "Node.js", "Express", "MongoDB"].map(
-                  (tech) => (
-                    <span
-                      key={tech}
-                      className="
+                {["React", "Node.js", "Express", "MongoDB"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="
                         rounded-lg
                         border
                         border-white/[0.08]
@@ -269,11 +258,10 @@ const Hero = () => {
                         hover:bg-indigo-500/10
                         hover:text-indigo-300
                       "
-                    >
-                      {tech}
-                    </span>
-                  )
-                )}
+                  >
+                    {tech}
+                  </span>
+                ))}
               </motion.div>
 
               {/* CTA */}
@@ -307,7 +295,6 @@ const Hero = () => {
                   "
                 >
                   Let's Connect
-
                   <ArrowUpRight
                     size={16}
                     className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -339,7 +326,6 @@ const Hero = () => {
                   "
                 >
                   View My Work
-
                   <ExternalLink
                     size={15}
                     className="text-slate-500 transition group-hover:text-indigo-300"
@@ -476,7 +462,6 @@ const Hero = () => {
                 xl:max-w-[350px]
               "
             >
-
               {/* Glow */}
               <div
                 className="
@@ -530,7 +515,7 @@ const Hero = () => {
                   "
                 >
                   <img
-                    src="/src/images/profile.jpeg"
+                    src={profileImage}
                     alt="Dhiraj Kumar"
                     className="
                       aspect-[4/5]
@@ -568,10 +553,7 @@ const Hero = () => {
                         py-1.5
                       "
                     >
-                      <Sparkles
-                        size={11}
-                        className="text-indigo-300"
-                      />
+                      <Sparkles size={11} className="text-indigo-300" />
 
                       <span className="text-[10px] font-semibold text-slate-200">
                         MERN Developer
@@ -699,9 +681,7 @@ const Hero = () => {
                       Stack
                     </p>
 
-                    <p className="text-[11px] font-bold text-slate-200">
-                      MERN
-                    </p>
+                    <p className="text-[11px] font-bold text-slate-200">MERN</p>
                   </div>
                 </div>
               </motion.div>
