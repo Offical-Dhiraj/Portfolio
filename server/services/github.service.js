@@ -1,19 +1,36 @@
-const githubHeaders = {
+const baseHeaders = {
   Accept: "application/vnd.github+json",
   "X-GitHub-Api-Version": "2022-11-28",
   "User-Agent": "Dhiraj-Kumar-Portfolio",
 };
 
-export const getGithubProfile = async () => {
-  const githubUsername =
-    process.env.GITHUB_USERNAME || "Offical-Dhiraj";
+const getGithubUsername = () => {
+  return (
+    process.env.GITHUB_USERNAME ||
+    "Offical-Dhiraj"
+  );
+};
 
-  console.log("GitHub username:", githubUsername);
+const getGithubHeaders = () => {
+  const headers = {
+    ...baseHeaders,
+  };
+
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization =
+      `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
+
+  return headers;
+};
+
+export const getGithubProfile = async () => {
+  const githubUsername = getGithubUsername();
 
   const response = await fetch(
     `https://api.github.com/users/${githubUsername}`,
     {
-      headers: githubHeaders,
+      headers: getGithubHeaders(),
     }
   );
 
@@ -46,15 +63,17 @@ export const getGithubProfile = async () => {
 };
 
 export const getGithubRepos = async () => {
-  const githubUsername =
-    process.env.GITHUB_USERNAME || "Offical-Dhiraj";
+  const githubUsername = getGithubUsername();
 
-  console.log("Fetching GitHub repositories for:", githubUsername);
+  console.log(
+    "Fetching GitHub repositories for:",
+    githubUsername
+  );
 
   const response = await fetch(
     `https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=20`,
     {
-      headers: githubHeaders,
+      headers: getGithubHeaders(),
     }
   );
 
@@ -73,6 +92,11 @@ export const getGithubRepos = async () => {
   }
 
   const repos = await response.json();
+
+  console.log(
+    "GitHub repositories received:",
+    repos.length
+  );
 
   return repos.map((repo) => ({
     id: repo.id,
