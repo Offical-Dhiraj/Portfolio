@@ -4,8 +4,7 @@ import {
   Code2,
   BriefcaseBusiness,
   Rocket,
-  ArrowRight,
-  Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
 
 import SectionBadge from "../components/SectionBadge";
@@ -53,39 +52,48 @@ const Journey = () => {
         relative
         overflow-hidden
         bg-[#0D1220]
-        py-20
-        text-white
-        sm:py-24
+        py-24
+        sm:py-28
+        lg:py-32
       "
     >
       {/* =========================================================
           BACKGROUND
-      ========================================================= */}
+      ========================================================== */}
 
       <div
         className="
           pointer-events-none
           absolute
-          -left-40
-          top-1/4
-          h-80
-          w-80
-          rounded-full
-          bg-indigo-500/10
-          blur-[130px]
+          inset-0
+          opacity-[0.16]
         "
+        style={{
+          backgroundImage: `
+            linear-gradient(
+              rgba(148,163,184,0.035) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              90deg,
+              rgba(148,163,184,0.035) 1px,
+              transparent 1px
+            )
+          `,
+          backgroundSize: "48px 48px",
+        }}
       />
 
       <div
         className="
           pointer-events-none
           absolute
-          -right-40
-          bottom-10
-          h-96
-          w-96
+          -left-56
+          top-1/3
+          h-[420px]
+          w-[420px]
           rounded-full
-          bg-violet-500/10
+          bg-indigo-500/[0.035]
           blur-[140px]
         "
       />
@@ -94,374 +102,416 @@ const Journey = () => {
         className="
           pointer-events-none
           absolute
-          inset-0
-          opacity-[0.025]
-          [background-image:linear-gradient(rgba(148,163,184,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.5)_1px,transparent_1px)]
-          [background-size:50px_50px]
+          -right-56
+          bottom-0
+          h-[420px]
+          w-[420px]
+          rounded-full
+          bg-violet-500/[0.035]
+          blur-[140px]
         "
       />
 
       <div className="container-custom relative z-10">
 
-        {/* =======================================================
-            HEADER
-        ======================================================= */}
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <SectionBadge>My Journey</SectionBadge>
-
-          <h2
-            className="
-              mt-4
-              text-3xl
-              font-black
-              leading-tight
-              tracking-tight
-              sm:text-4xl
-              lg:text-5xl
-            "
-          >
-            Learning.
-            <span className="gradient-text">
-              {" "}Building.
-            </span>
-            <br className="sm:hidden" /> Growing.
-          </h2>
-
-          <p
-            className="
-              mx-auto
-              mt-4
-              max-w-2xl
-              text-sm
-              leading-7
-              text-slate-400
-              sm:text-base
-            "
-          >
-            From learning the fundamentals of web development to building
-            full-stack and AI-powered applications, every stage has shaped
-            the developer I am becoming.
-          </p>
-        </motion.div>
-
-        {/* =======================================================
-            TIMELINE
-        ======================================================= */}
+        {/* =========================================================
+            MAIN LAYOUT
+        ========================================================== */}
 
         <div
           className="
-            relative
-            mx-auto
-            mt-12
-            max-w-5xl
-            lg:mt-16
+            grid
+            gap-14
+            lg:grid-cols-[0.8fr_1.2fr]
+            lg:gap-20
+            xl:gap-28
           "
         >
-          {/* Desktop Center Line */}
 
-          <div
+          {/* =====================================================
+              LEFT CONTENT
+          ====================================================== */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: -25,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.2,
+            }}
+            transition={{
+              duration: 0.6,
+            }}
             className="
-              absolute
-              bottom-5
-              left-1/2
-              top-5
-              hidden
-              w-px
-              -translate-x-1/2
-              bg-gradient-to-b
-              from-indigo-400/0
-              via-indigo-400/40
-              to-violet-400/0
-              md:block
+              lg:sticky
+              lg:top-28
+              lg:self-start
             "
-          />
+          >
+            <SectionBadge>
+              My Journey
+            </SectionBadge>
 
-          {/* Mobile Line */}
+            <h2
+              className="
+                mt-6
+                max-w-lg
+                text-4xl
+                font-black
+                leading-[1.05]
+                tracking-[-0.045em]
+                text-white
+                sm:text-5xl
+                lg:text-[58px]
+              "
+            >
+              From
+              <span className="gradient-text">
+                {" "}curiosity
+              </span>
+              <br />
+              to building.
+            </h2>
 
-          <div
-            className="
-              absolute
-              bottom-5
-              left-[19px]
-              top-5
-              w-px
-              bg-gradient-to-b
-              from-indigo-400/0
-              via-indigo-400/30
-              to-violet-400/0
-              md:hidden
-            "
-          />
+            <p
+              className="
+                mt-7
+                max-w-md
+                text-[15px]
+                leading-7
+                text-slate-400
+                sm:text-base
+              "
+            >
+              My journey has been shaped by learning
+              through projects, experimenting with
+              technologies and continuously improving
+              how I solve problems.
+            </p>
 
-          <div className="space-y-8 md:space-y-12">
-            {journey.map((item, index) => {
-              const Icon = item.icon;
-              const isRight = index % 2 !== 0;
+            {/* Small summary */}
 
-              return (
-                <motion.div
-                  key={item.year}
-                  initial={{
-                    opacity: 0,
-                    y: 25,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                  }}
-                  transition={{
-                    duration: 0.55,
-                    delay: index * 0.08,
-                  }}
-                  className={`
-                    relative
-                    flex
-                    items-start
-                    pl-12
-                    md:w-1/2
-                    md:pl-0
-                    ${
-                      isRight
-                        ? "md:ml-auto md:pl-12"
-                        : "md:pr-12"
-                    }
-                  `}
-                >
-                  {/* =================================================
-                      TIMELINE CONNECTOR
-                  ================================================= */}
+            <div
+              className="
+                mt-10
+                border-l
+                border-indigo-400/30
+                pl-5
+              "
+            >
+              <p
+                className="
+                  text-sm
+                  font-semibold
+                  text-slate-300
+                "
+              >
+                2024 → Present
+              </p>
 
-                  <div
-                    className={`
-                      absolute
-                      left-0
-                      top-5
-                      flex
-                      h-10
-                      w-10
-                      items-center
-                      justify-center
-                      rounded-xl
-                      border
-                      border-indigo-400/20
-                      bg-[#111827]
-                      text-indigo-400
-                      shadow-[0_0_25px_rgba(99,102,241,0.12)]
-                      md:left-auto
-                      ${
-                        isRight
-                          ? "md:-left-5"
-                          : "md:-right-5"
-                      }
-                      z-20
-                    `}
-                  >
-                    <Icon size={16} />
-                  </div>
+              <p
+                className="
+                  mt-1.5
+                  text-xs
+                  leading-6
+                  text-slate-600
+                "
+              >
+                Learning, building and preparing for
+                the next step in my software development
+                career.
+              </p>
+            </div>
+          </motion.div>
 
-                  {/* Horizontal connector */}
+          {/* =====================================================
+              RIGHT TIMELINE
+          ====================================================== */}
 
-                  <div
-                    className={`
-                      absolute
-                      top-10
-                      hidden
-                      h-px
-                      w-12
-                      bg-indigo-400/20
-                      md:block
-                      ${
-                        isRight
-                          ? "md:left-0"
-                          : "md:right-0"
-                      }
-                    `}
-                  />
+          <div className="relative">
 
-                  {/* =================================================
-                      CARD
-                  ================================================= */}
+            {/* Vertical timeline */}
 
-                  <motion.div
-                    whileHover={{
-                      y: -4,
+            <div
+              className="
+                absolute
+                bottom-8
+                left-[8px]
+                top-8
+                w-px
+                bg-gradient-to-b
+                from-indigo-400/0
+                via-slate-700
+                to-violet-400/0
+                sm:left-[11px]
+              "
+            />
+
+            <div className="space-y-8 sm:space-y-10">
+
+              {journey.map((item, index) => {
+                const Icon = item.icon;
+
+                return (
+                  <motion.article
+                    key={item.year}
+                    initial={{
+                      opacity: 0,
+                      y: 25,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                      amount: 0.2,
+                    }}
+                    transition={{
+                      duration: 0.55,
+                      delay: index * 0.08,
                     }}
                     className="
-                      premium-card
                       group
                       relative
-                      w-full
-                      overflow-hidden
-                      rounded-2xl
-                      p-5
-                      sm:p-6
+                      pl-10
+                      sm:pl-14
                     "
                   >
-                    {/* Card glow */}
+
+                    {/* Timeline dot */}
 
                     <div
                       className="
-                        pointer-events-none
                         absolute
-                        -right-10
-                        -top-10
-                        h-24
-                        w-24
-                        rounded-full
-                        bg-indigo-500/5
-                        blur-2xl
-                        transition
-                        duration-500
-                        group-hover:bg-indigo-500/10
-                      "
-                    />
-
-                    {/* Top row */}
-
-                    <div className="relative flex items-center justify-between gap-3">
-                      <span
-                        className="
-                          inline-flex
-                          items-center
-                          rounded-full
-                          border
-                          border-indigo-400/15
-                          bg-indigo-500/10
-                          px-2.5
-                          py-1
-                          text-[10px]
-                          font-bold
-                          tracking-wide
-                          text-indigo-300
-                        "
-                      >
-                        {item.year}
-                      </span>
-
-                      <span
-                        className="
-                          text-[9px]
-                          font-bold
-                          uppercase
-                          tracking-[0.16em]
-                          text-slate-600
-                        "
-                      >
-                        {item.tag}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-
-                    <h3
-                      className="
-                        relative
-                        mt-4
-                        text-lg
-                        font-black
-                        leading-tight
-                        text-white
-                        sm:text-xl
-                      "
-                    >
-                      {item.title}
-                    </h3>
-
-                    {/* Description */}
-
-                    <p
-                      className="
-                        relative
-                        mt-2.5
-                        text-xs
-                        leading-6
-                        text-slate-500
-                        sm:text-sm
-                      "
-                    >
-                      {item.description}
-                    </p>
-
-                    {/* Bottom */}
-
-                    <div
-                      className="
-                        relative
-                        mt-4
+                        left-0
+                        top-7
+                        z-10
                         flex
+                        h-[17px]
+                        w-[17px]
                         items-center
-                        gap-1.5
-                        text-[10px]
-                        font-bold
-                        uppercase
-                        tracking-wider
-                        text-slate-600
-                        transition
-                        group-hover:text-indigo-400
+                        justify-center
+                        rounded-full
+                        border
+                        border-[#0D1220]
+                        bg-indigo-400
+                        shadow-[0_0_0_4px_rgba(99,102,241,0.08)]
                       "
                     >
-                      <span>Milestone</span>
-
-                      <ArrowRight
-                        size={12}
+                      <div
                         className="
-                          transition
-                          duration-300
-                          group-hover:translate-x-1
+                          h-1.5
+                          w-1.5
+                          rounded-full
+                          bg-white
                         "
                       />
                     </div>
 
-                    {/* Bottom accent */}
+                    {/* Card */}
 
                     <div
                       className="
-                        absolute
-                        bottom-0
-                        left-1/2
-                        h-px
-                        w-0
-                        -translate-x-1/2
-                        bg-gradient-to-r
-                        from-transparent
-                        via-indigo-400
-                        to-transparent
+                        relative
+                        overflow-hidden
+                        rounded-2xl
+                        border
+                        border-white/[0.07]
+                        bg-[#111827]
                         transition-all
-                        duration-500
-                        group-hover:w-1/2
+                        duration-300
+                        group-hover:border-white/[0.13]
+                        group-hover:bg-[#131B2B]
                       "
-                    />
-                  </motion.div>
-                </motion.div>
-              );
-            })}
+                    >
+
+                      {/* Top accent */}
+
+                      <div
+                        className="
+                          absolute
+                          left-0
+                          top-0
+                          h-px
+                          w-0
+                          bg-gradient-to-r
+                          from-indigo-400
+                          to-cyan-400
+                          transition-all
+                          duration-500
+                          group-hover:w-full
+                        "
+                      />
+
+                      <div className="p-6 sm:p-7">
+
+                        {/* =====================================
+                            CARD TOP
+                        ====================================== */}
+
+                        <div
+                          className="
+                            flex
+                            items-start
+                            justify-between
+                            gap-5
+                          "
+                        >
+
+                          {/* Year */}
+
+                          <div>
+                            <p
+                              className="
+                                text-xs
+                                font-bold
+                                uppercase
+                                tracking-[0.16em]
+                                text-indigo-400
+                              "
+                            >
+                              {item.tag}
+                            </p>
+
+                            <p
+                              className="
+                                mt-2
+                                text-2xl
+                                font-black
+                                tracking-tight
+                                text-white
+                                sm:text-3xl
+                              "
+                            >
+                              {item.year}
+                            </p>
+                          </div>
+
+                          {/* Icon */}
+
+                          <div
+                            className="
+                              flex
+                              h-11
+                              w-11
+                              shrink-0
+                              items-center
+                              justify-center
+                              rounded-xl
+                              border
+                              border-white/[0.07]
+                              bg-white/[0.035]
+                              text-slate-400
+                              transition-all
+                              duration-300
+                              group-hover:border-indigo-400/20
+                              group-hover:bg-indigo-500/[0.07]
+                              group-hover:text-indigo-300
+                            "
+                          >
+                            <Icon size={19} />
+                          </div>
+
+                        </div>
+
+                        {/* =====================================
+                            TITLE
+                        ====================================== */}
+
+                        <h3
+                          className="
+                            mt-6
+                            text-xl
+                            font-bold
+                            tracking-tight
+                            text-white
+                            transition-colors
+                            duration-300
+                            group-hover:text-indigo-200
+                            sm:text-2xl
+                          "
+                        >
+                          {item.title}
+                        </h3>
+
+                        {/* =====================================
+                            DESCRIPTION
+                        ====================================== */}
+
+                        <p
+                          className="
+                            mt-3
+                            max-w-2xl
+                            text-sm
+                            leading-7
+                            text-slate-400
+                            sm:text-[15px]
+                          "
+                        >
+                          {item.description}
+                        </p>
+
+                        {/* =====================================
+                            BOTTOM
+                        ====================================== */}
+
+                        <div
+                          className="
+                            mt-6
+                            flex
+                            items-center
+                            justify-between
+                            border-t
+                            border-white/[0.06]
+                            pt-5
+                          "
+                        >
+                          <span
+                            className="
+                              text-[10px]
+                              font-bold
+                              uppercase
+                              tracking-[0.15em]
+                              text-slate-600
+                            "
+                          >
+                            Chapter {index + 1}
+                          </span>
+
+                          <ArrowUpRight
+                            size={15}
+                            className="
+                              text-slate-600
+                              transition-all
+                              duration-300
+                              group-hover:-translate-y-0.5
+                              group-hover:translate-x-0.5
+                              group-hover:text-indigo-400
+                            "
+                          />
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </motion.article>
+                );
+              })}
+
+            </div>
           </div>
         </div>
 
-        {/* =======================================================
-            BOTTOM MESSAGE
-        ======================================================= */}
+        {/* =========================================================
+            BOTTOM STATEMENT
+        ========================================================== */}
 
         <motion.div
           initial={{
@@ -480,26 +530,24 @@ const Journey = () => {
             delay: 0.2,
           }}
           className="
-            mx-auto
-            mt-12
-            flex
-            max-w-xl
-            items-center
-            justify-center
-            gap-2
+            mt-20
+            border-t
+            border-white/[0.07]
+            pt-8
             text-center
           "
         >
-          <Sparkles
-            size={14}
-            className="shrink-0 text-indigo-400"
-          />
-
-          <p className="text-xs text-slate-500">
-            The journey continues — learning, building and becoming better
-            every day.
+          <p
+            className="
+              text-sm
+              font-medium
+              text-slate-600
+            "
+          >
+            The journey is still being written.
           </p>
         </motion.div>
+
       </div>
     </section>
   );

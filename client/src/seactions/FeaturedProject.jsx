@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
-  ExternalLink,
-  Sparkles,
-  BrainCircuit,
   CheckCircle2,
+  ExternalLink,
   Layers3,
+  Sparkles,
   Zap,
 } from "lucide-react";
+
 import { FaGithub } from "react-icons/fa";
 
-import SectionBadge from "../components/SectionBadge";
 import { getProjects } from "../services/projectService";
 
 const fallbackProject = {
@@ -25,13 +24,12 @@ const fallbackProject = {
     "MongoDB",
     "Generative AI",
   ],
-  image: "/images/projects/ai-learning-platform.png",
   githubUrl:
     "https://github.com/Offical-Dhiraj/ai-learning-platform",
   liveUrl: "",
 };
 
-const features = [
+const capabilities = [
   "AI-generated practice questions",
   "Weak-topic detection",
   "Personalized study plans",
@@ -40,6 +38,7 @@ const features = [
 
 const FeaturedProject = () => {
   const [project, setProject] = useState(fallbackProject);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProject = async () => {
@@ -50,18 +49,23 @@ const FeaturedProject = () => {
           ? data
           : data?.projects || [];
 
-        const featured = projects.find(
-          (item) => item.featured
-        );
+        const featuredProject =
+          projects.find((item) => item.featured) ||
+          projects[0];
 
-        if (featured) {
-          setProject(featured);
+        if (featuredProject) {
+          setProject({
+            ...fallbackProject,
+            ...featuredProject,
+          });
         }
       } catch (error) {
         console.error(
           "Failed to load featured project:",
           error
         );
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -76,566 +80,507 @@ const FeaturedProject = () => {
         overflow-hidden
         bg-[#080B14]
         py-20
-        text-white
         sm:py-24
       "
     >
-      {/* =========================================================
+      {/* =========================================
           BACKGROUND
-      ========================================================= */}
+      ========================================== */}
 
-      <div
-        className="
-          pointer-events-none
-          absolute
-          -left-40
-          top-20
-          h-80
-          w-80
-          rounded-full
-          bg-indigo-500/10
-          blur-[130px]
-        "
-      />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-40 top-20 h-80 w-80 rounded-full bg-indigo-600/10 blur-[130px]" />
 
-      <div
-        className="
-          pointer-events-none
-          absolute
-          -right-40
-          bottom-10
-          h-96
-          w-96
-          rounded-full
-          bg-violet-500/10
-          blur-[140px]
-        "
-      />
+        <div className="absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-violet-600/10 blur-[140px]" />
 
+        <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.035] blur-[120px]" />
+      </div>
+
+      {/* GRID */}
       <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          opacity-[0.025]
-          [background-image:linear-gradient(rgba(148,163,184,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.5)_1px,transparent_1px)]
-          [background-size:50px_50px]
-        "
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: `
+            linear-gradient(
+              rgba(148,163,184,0.035) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              90deg,
+              rgba(148,163,184,0.035) 1px,
+              transparent 1px
+            )
+          `,
+          backgroundSize: "45px 45px",
+        }}
       />
 
       <div className="container-custom relative z-10">
 
-        {/* =======================================================
+        {/* =======================================
             HEADER
-        ======================================================= */}
+        ======================================== */}
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          className="mx-auto max-w-3xl text-center"
         >
-          <SectionBadge>Featured Project</SectionBadge>
-
-          <div
-            className="
-              mt-5
-              flex
-              flex-col
-              gap-5
-              lg:flex-row
-              lg:items-end
-              lg:justify-between
-            "
-          >
-            <div>
-              <h2
-                className="
-                  max-w-3xl
-                  text-3xl
-                  font-black
-                  leading-tight
-                  tracking-tight
-                  sm:text-4xl
-                  lg:text-5xl
-                "
-              >
-                Building products with{" "}
-                <span className="gradient-text">
-                  purpose.
-                </span>
-              </h2>
-
-              <p
-                className="
-                  mt-4
-                  max-w-2xl
-                  text-sm
-                  leading-7
-                  text-slate-400
-                  sm:text-base
-                "
-              >
-                A closer look at a project where I combined
-                full-stack development with Generative AI to
-                solve a practical problem.
-              </p>
-            </div>
-
-            <div
-              className="
-                hidden
-                h-12
-                w-12
-                items-center
-                justify-center
-                rounded-2xl
-                border
-                border-indigo-400/10
-                bg-indigo-500/5
-                text-indigo-400
-                lg:flex
-              "
-            >
-              <Sparkles size={20} />
-            </div>
+          <div className="
+            mx-auto
+            inline-flex
+            items-center
+            gap-2
+            rounded-full
+            border
+            border-indigo-400/10
+            bg-indigo-500/[0.07]
+            px-4
+            py-2
+            text-xs
+            font-bold
+            uppercase
+            tracking-[0.16em]
+            text-indigo-300
+          ">
+            <Sparkles size={14} />
+            Featured Project
           </div>
+
+          <h2 className="
+            mt-5
+            text-4xl
+            font-black
+            tracking-tight
+            text-white
+            sm:text-5xl
+            lg:text-6xl
+          ">
+            Building products
+            <span className="gradient-text">
+              {" "}with purpose.
+            </span>
+          </h2>
+
+          <p className="
+            mx-auto
+            mt-5
+            max-w-2xl
+            text-base
+            leading-8
+            text-slate-400
+            sm:text-lg
+          ">
+            A closer look at one of my full-stack
+            projects and the engineering behind it.
+          </p>
         </motion.div>
 
-        {/* =======================================================
-            FEATURED PROJECT
-        ======================================================= */}
+        {/* =======================================
+            FEATURED PROJECT CARD
+        ======================================== */}
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          amount={0.15}
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
           transition={{
             duration: 0.7,
-            delay: 0.1,
           }}
           className="
             relative
-            mt-10
+            mx-auto
+            mt-14
+            max-w-6xl
             overflow-hidden
-            rounded-[28px]
+            rounded-[30px]
             border
             border-white/[0.08]
             bg-[#0F1524]
-            shadow-[0_30px_100px_rgba(0,0,0,0.35)]
+            shadow-[0_25px_80px_rgba(0,0,0,0.28)]
           "
         >
-          {/* Top Accent */}
+          {/* TOP LINE */}
+          <div className="
+            absolute
+            inset-x-0
+            top-0
+            h-px
+            bg-gradient-to-r
+            from-transparent
+            via-indigo-500
+            to-transparent
+          " />
 
-          <div
-            className="
-              absolute
-              left-0
-              right-0
-              top-0
-              h-px
-              bg-gradient-to-r
-              from-transparent
-              via-indigo-400/70
-              to-transparent
-            "
-          />
+          <div className="
+            grid
+            lg:grid-cols-[0.8fr_1.2fr]
+          ">
 
-          <div
-            className="
-              grid
-              lg:grid-cols-[1.05fr_0.95fr]
-            "
-          >
+            {/* =================================
+                LEFT PROJECT OVERVIEW
+            ================================== */}
 
-            {/* ===================================================
-                PROJECT VISUAL
-            =================================================== */}
+            <div className="
+              relative
+              overflow-hidden
+              border-b
+              border-white/[0.07]
+              p-7
+              sm:p-10
+              lg:border-b-0
+              lg:border-r
+            ">
 
-            <div
-              className="
-                relative
-                min-h-[280px]
-                overflow-hidden
-                bg-[#090D17]
-                sm:min-h-[360px]
-                lg:min-h-[500px]
-              "
-            >
-              {/* Glow */}
+              {/* Decorative Glow */}
+              <div className="
+                pointer-events-none
+                absolute
+                -left-20
+                -top-20
+                h-56
+                w-56
+                rounded-full
+                bg-indigo-500/10
+                blur-[90px]
+              " />
 
-              <div
-                className="
-                  pointer-events-none
-                  absolute
-                  left-1/2
-                  top-1/2
-                  h-64
-                  w-64
-                  -translate-x-1/2
-                  -translate-y-1/2
-                  rounded-full
-                  bg-indigo-500/10
-                  blur-[100px]
-                "
-              />
+              <div className="relative">
 
-              {/* Browser Frame */}
-
-              <div
-                className="
-                  absolute
-                  inset-5
-                  overflow-hidden
+                {/* Project Icon */}
+                <div className="
+                  flex
+                  h-16
+                  w-16
+                  items-center
+                  justify-center
                   rounded-2xl
                   border
-                  border-white/[0.09]
-                  bg-[#0B101B]
-                  shadow-2xl
-                  sm:inset-7
-                  lg:inset-10
-                "
-              >
-                {/* Browser Header */}
-
-                <div
-                  className="
-                    flex
-                    h-9
-                    items-center
-                    gap-2
-                    border-b
-                    border-white/[0.06]
-                    bg-white/[0.025]
-                    px-3
-                  "
-                >
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-400/60" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/60" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/60" />
-
-                  <div className="ml-2 h-4 flex-1 rounded-md bg-white/[0.035]" />
+                  border-indigo-400/15
+                  bg-gradient-to-br
+                  from-indigo-500/15
+                  to-violet-500/10
+                  text-indigo-300
+                  shadow-lg
+                  shadow-indigo-500/5
+                ">
+                  <Layers3 size={29} />
                 </div>
 
-                {/* Project Image */}
+                {/* Project Number */}
+                <p className="
+                  mt-8
+                  text-xs
+                  font-bold
+                  uppercase
+                  tracking-[0.18em]
+                  text-slate-600
+                ">
+                  Featured Build · 01
+                </p>
 
-                <div className="relative h-[calc(100%-36px)] overflow-hidden">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="
-                        h-full
-                        w-full
-                        object-cover
-                        object-top
-                        transition
-                        duration-700
-                        hover:scale-[1.025]
-                      "
-                    />
-                  ) : (
-                    <div
-                      className="
-                        flex
-                        h-full
-                        items-center
-                        justify-center
-                        bg-gradient-to-br
-                        from-indigo-950
-                        via-[#0B101B]
-                        to-violet-950
-                      "
-                    >
-                      <BrainCircuit
-                        size={90}
-                        className="text-indigo-400/20"
-                      />
-                    </div>
-                  )}
+                {/* Title */}
+                <h3 className="
+                  mt-3
+                  text-3xl
+                  font-black
+                  tracking-tight
+                  text-white
+                  sm:text-4xl
+                ">
+                  {project.title}
+                </h3>
 
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      inset-0
-                      bg-gradient-to-t
-                      from-[#080B14]/60
-                      via-transparent
-                      to-transparent
-                    "
-                  />
-                </div>
-              </div>
-
-              {/* Featured Badge */}
-
-              <div
-                className="
-                  absolute
-                  left-8
-                  top-8
-                  flex
+                {/* Category */}
+                <div className="
+                  mt-4
+                  inline-flex
                   items-center
                   gap-2
                   rounded-full
                   border
-                  border-indigo-400/20
-                  bg-[#080B14]/80
+                  border-indigo-400/10
+                  bg-indigo-500/[0.07]
                   px-3
                   py-1.5
-                  text-[10px]
+                  text-xs
                   font-bold
-                  uppercase
-                  tracking-wider
                   text-indigo-300
-                  backdrop-blur-xl
-                  sm:left-10
-                  sm:top-10
-                "
-              >
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                Featured Build
-              </div>
-
-              {/* Technology Pills */}
-
-              <div
-                className="
-                  absolute
-                  bottom-8
-                  left-8
-                  right-8
-                  flex
-                  flex-wrap
-                  gap-2
-                  sm:left-10
-                  sm:right-10
-                "
-              >
-                {project.technologies
-                  ?.slice(0, 5)
-                  .map((technology) => (
-                    <span
-                      key={technology}
-                      className="
-                        rounded-full
-                        border
-                        border-white/10
-                        bg-[#080B14]/75
-                        px-2.5
-                        py-1
-                        text-[10px]
-                        font-semibold
-                        text-slate-200
-                        backdrop-blur-xl
-                      "
-                    >
-                      {technology}
-                    </span>
-                  ))}
-              </div>
-            </div>
-
-            {/* ===================================================
-                PROJECT INFORMATION
-            =================================================== */}
-
-            <div
-              className="
-                flex
-                flex-col
-                justify-center
-                p-6
-                sm:p-8
-                lg:p-10
-                xl:p-12
-              "
-            >
-              {/* Project Type */}
-
-              <div className="flex items-center gap-2">
-                <div
-                  className="
-                    flex
-                    h-8
-                    w-8
-                    items-center
-                    justify-center
-                    rounded-lg
-                    bg-indigo-500/10
-                    text-indigo-400
-                  "
-                >
-                  <BrainCircuit size={15} />
+                ">
+                  <Zap size={13} />
+                  MERN + Generative AI
                 </div>
 
-                <span
-                  className="
-                    text-[10px]
-                    font-bold
-                    uppercase
-                    tracking-[0.2em]
-                    text-indigo-400
-                  "
-                >
-                  MERN + Generative AI
-                </span>
-              </div>
-
-              {/* Title */}
-
-              <h3
-                className="
-                  mt-4
-                  text-3xl
-                  font-black
-                  leading-tight
-                  tracking-tight
-                  text-white
-                  sm:text-4xl
-                "
-              >
-                {project.title}
-              </h3>
-
-              {/* Description */}
-
-              <p
-                className="
-                  mt-4
+                {/* Description */}
+                <p className="
+                  mt-6
                   text-sm
                   leading-7
                   text-slate-400
-                  sm:text-base
-                "
-              >
-                {project.description}
-              </p>
+                ">
+                  {project.description}
+                </p>
 
-              {/* Feature Heading */}
+                {/* Tech Stack */}
+                <div className="mt-8">
 
-              <div className="mt-7 flex items-center gap-2">
-                <Zap
-                  size={14}
-                  className="text-violet-400"
-                />
+                  <p className="
+                    text-[11px]
+                    font-bold
+                    uppercase
+                    tracking-[0.16em]
+                    text-slate-600
+                  ">
+                    Technology Stack
+                  </p>
 
-                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
-                  Key Capabilities
-                </span>
+                  <div className="
+                    mt-4
+                    flex
+                    flex-wrap
+                    gap-2
+                  ">
+                    {(project.technologies || [])
+                      .map((technology) => (
+                        <span
+                          key={technology}
+                          className="
+                            rounded-lg
+                            border
+                            border-white/[0.07]
+                            bg-white/[0.035]
+                            px-3
+                            py-1.5
+                            text-xs
+                            font-medium
+                            text-slate-300
+                          "
+                        >
+                          {technology}
+                        </span>
+                      ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* =================================
+                RIGHT PROJECT DETAILS
+            ================================== */}
+
+            <div className="
+              p-7
+              sm:p-10
+            ">
+
+              {/* Section Label */}
+              <div className="
+                flex
+                items-center
+                gap-2
+                text-xs
+                font-bold
+                uppercase
+                tracking-[0.16em]
+                text-indigo-400
+              ">
+                <Zap size={15} />
+                Key Capabilities
               </div>
 
-              {/* Features */}
-
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {features.map((feature) => (
+              {/* Capabilities */}
+              <div className="
+                mt-6
+                grid
+                gap-3
+                sm:grid-cols-2
+              ">
+                {capabilities.map((capability) => (
                   <div
-                    key={feature}
+                    key={capability}
                     className="
                       flex
                       items-center
-                      gap-2
+                      gap-3
                       rounded-xl
                       border
-                      border-white/[0.06]
+                      border-white/[0.07]
                       bg-white/[0.025]
-                      px-3
-                      py-2.5
+                      px-4
+                      py-3.5
+                      transition-all
+                      duration-300
+                      hover:border-indigo-400/15
+                      hover:bg-indigo-500/[0.04]
                     "
                   >
                     <CheckCircle2
-                      size={14}
-                      className="shrink-0 text-indigo-400"
+                      size={17}
+                      className="
+                        shrink-0
+                        text-indigo-400
+                      "
                     />
 
-                    <span className="text-[11px] font-medium text-slate-300">
-                      {feature}
+                    <span className="
+                      text-sm
+                      font-medium
+                      text-slate-300
+                    ">
+                      {capability}
                     </span>
                   </div>
                 ))}
               </div>
 
+              {/* Architecture */}
+              <div className="
+                mt-8
+                rounded-2xl
+                border
+                border-white/[0.07]
+                bg-white/[0.025]
+                p-5
+              ">
+                <p className="
+                  text-xs
+                  font-bold
+                  uppercase
+                  tracking-[0.15em]
+                  text-slate-600
+                ">
+                  What I built
+                </p>
+
+                <p className="
+                  mt-3
+                  text-sm
+                  leading-7
+                  text-slate-400
+                ">
+                  A complete learning workflow combining
+                  modern React interfaces, REST APIs,
+                  MongoDB data management and Generative
+                  AI to personalize exam preparation.
+                </p>
+              </div>
+
               {/* Divider */}
+              <div className="
+                my-8
+                h-px
+                bg-white/[0.07]
+              " />
 
-              <div className="my-7 h-px bg-white/[0.07]" />
+              {/* ACTIONS */}
+              <div className="
+                flex
+                flex-wrap
+                gap-3
+              ">
 
-              {/* Actions */}
-
-              <div className="flex flex-wrap gap-3">
+                {/* GITHUB */}
                 {project.githubUrl && (
-                  <motion.a
+                  <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ y: -2 }}
                     className="
                       inline-flex
                       items-center
                       gap-2
                       rounded-xl
                       bg-white
-                      px-4
-                      py-2.5
-                      text-xs
+                      px-5
+                      py-3
+                      text-sm
                       font-bold
-                      text-[#080B14]
-                      transition
-                      hover:bg-slate-200
+                      text-slate-950
+                      shadow-lg
+                      transition-all
+                      duration-300
+                      hover:-translate-y-0.5
+                      hover:bg-slate-100
                     "
                   >
-                    <FaGithub size={16} />
+                    <FaGithub size={18} />
                     View Source
-                    <ArrowUpRight size={14} />
-                  </motion.a>
+                    <ArrowUpRight size={16} />
+                  </a>
                 )}
 
+                {/* LIVE DEMO */}
                 {project.liveUrl && (
-                  <motion.a
+                  <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ y: -2 }}
                     className="
                       inline-flex
                       items-center
                       gap-2
                       rounded-xl
                       border
-                      border-white/10
+                      border-white/[0.08]
                       bg-white/[0.04]
-                      px-4
-                      py-2.5
-                      text-xs
+                      px-5
+                      py-3
+                      text-sm
                       font-bold
                       text-slate-200
-                      transition
-                      hover:border-indigo-400/30
+                      transition-all
+                      duration-300
+                      hover:-translate-y-0.5
+                      hover:border-indigo-400/20
                       hover:bg-indigo-500/10
                     "
                   >
-                    <ExternalLink size={15} />
                     Live Demo
-                  </motion.a>
+                    <ExternalLink size={16} />
+                  </a>
                 )}
+
               </div>
 
-              {/* Bottom Message */}
+              {/* FOOT NOTE */}
+              <div className="
+                mt-7
+                flex
+                items-center
+                gap-2
+                text-xs
+                text-slate-600
+              ">
+                <Layers3 size={14} />
 
-              <div className="mt-5 flex items-center gap-2">
-                <Layers3
-                  size={13}
-                  className="text-slate-600"
-                />
-
-                <span className="text-[10px] text-slate-600">
-                  Designed, developed and integrated end-to-end
-                </span>
+                Designed, developed and integrated
+                end-to-end.
               </div>
+
             </div>
           </div>
         </motion.div>
+
       </div>
     </section>
   );

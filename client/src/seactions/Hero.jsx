@@ -375,7 +375,8 @@ const Hero = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/officail-dhirajkr/"
+                  target="_blank"
                   aria-label="LinkedIn"
                   className="
                     group
@@ -403,7 +404,7 @@ const Hero = () => {
                 </a>
 
                 <a
-                  href="mailto:dhirajkumar@example.com"
+                  href="mailto:dhirajmalakar19@gmail.com.com"
                   aria-label="Email"
                   className="
                     group
